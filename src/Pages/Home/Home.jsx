@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import { trendingApi } from '../../API/filmApi';
 import { useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { HomeContainer, Title, HomeList, LinkStyled, HomeImg, HomeName } from './Home.styled';
+import { Loader } from 'components/Loader/Loader';
 
 export const Home = () => {
   const [filmsApi, setFilmsApi] = useState(null);
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
+    setLoading(true);
     trendingApi()
       .then(({ data }) => {
         console.log(data);
@@ -15,23 +18,34 @@ export const Home = () => {
       })
       .catch(error => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
   return (
-    <>
-      <h1>Trending today</h1>
-      <ul>
-        {filmsApi &&
-          filmsApi.map(({ id, original_title, poster_path }) => (
-            <li key={id}>
-              <Link to={`/movies/${id}`} state={{ from: location }}>
-                      {/* <img alt={original_title} src={`https://image.tmdb.org/t/p/w500/${poster_path}`} width={300}  /> */}
-                <h2>{original_title}</h2>
-              </Link>
-            </li>
-          ))}
-      </ul>
-    </>
+    <HomeContainer>
+      <Title>Trending today</Title>
+      {loading ? (
+        <Loader />
+      ) : (
+        <HomeList>
+          {filmsApi &&
+            filmsApi.map(({ id, original_title, poster_path }) => (
+              <li key={id}>
+                <LinkStyled to={`/movies/${id}`} state={{ from: location }}>
+                  <HomeImg
+                    alt={original_title}
+                    src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+                    width={300}
+                  />
+                  <HomeName>{original_title}</HomeName>
+                </LinkStyled>
+              </li>
+            ))}
+        </HomeList>
+      )}
+    </HomeContainer>
   );
 };
