@@ -41,11 +41,12 @@ export const Button = styled.button`
   font-size: 16px;
   font-weight: 500;
   opacity: 1;
-  background-color: rgba(23, 208, 236, 0.827);
+  background-color:  #00a6b6;
   border: none;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+  /* border: 1px solid  #00a597; */
+  /* box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
     rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
-    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset; */
   border-radius: 4px;
   color: white;
   cursor: pointer;
