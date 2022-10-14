@@ -32,7 +32,7 @@ export const Reviews = () => {
         <Loader />
       ) : (
         <ReviewsLink>
-          {reviews ? (
+          {reviews?.length ? (
             reviews.map(({ author, id, content }) => {
               return (
                 <li key={id}>
